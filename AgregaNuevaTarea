@@ -1,320 +1,102 @@
-using DevComponents.DotNetBar.Validator;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
+using System.Data.SqlClient;
 
-namespace Calidad.Formularios
+
+
+namespace Calidad
 {
-    public partial class FrmAgregaTest3 : Form
+    public partial class FrmAgregaTest : Form
+
+
     {
-        public ConexionBD pResultado;
+
         public string pStringConex;
         private bool blnHidden;
-        private string Codproceso;
         private String Directorio;
+        
         private int pintniveles = 4;
-        public string CodSistema ="";
-        public string codDescSiste = "";
-        public string CodProceso;
-        public string DesProceso = "";
-        public string NomTest = "";
-        string StrSistema, StrProceso, StrTest, RutaCompleta;
-        string unidad = @"T:\";
 
-        public FrmAgregaTest3()
+        private string Codproceso;
+        public ConexionBD pResultado;
+        public Calendar pCalendario;
+
+        private string pstrTitulo = "Mantenedor de Test ";
+
+        public FrmAgregaTest()
         {
             pResultado = new ConexionBD();
             pResultado.StrCONADO = pStringConex;
-
             InitializeComponent();
         }
-        private void FrmAgregaTest3_Load(object sender, EventArgs e)
+
+        private void Form1_Load(object sender, EventArgs e)
         {
+            //TextBox prueba = new TextBox();
+
+            txtCodModulo.LostFocus +=new EventHandler(txtCodModulo_LostFocus);
+            txtcodproceso.LostFocus +=new EventHandler(txtCodProceso_LostFocus);
+            CmdBuscar1.GotFocus += new EventHandler(CmdBuscar1_GotFocus);
+            CmdAgrega.Enabled = false;
+            txtRutaTest.Enabled = false;
+            //txtCodModulo.Focus();
+            Btn_Extraer.Enabled = false;
+            this.Text = pstrTitulo;
             pResultado.StrCONADO = pStringConex;
+            grcreanuevo.Enabled = false;
+            grTestExistente.Enabled = true;
+
         }
 
-        private void txtNomTest_Validating(object sender, CancelEventArgs e)
+        void CmdBuscar1_GotFocus(object sender, EventArgs e)
         {
-            StrTest = txtNomTest.Text.ToUpper().TrimEnd().TrimStart();
-            txtNomTest.Text = StrTest;
-            RutaCompleta = "";
-            RutaCompleta = StrSistema + @"\" + StrProceso + @"\" + StrTest;
-            txtRutaTest.Text = RutaCompleta;
-            groupBox4.Enabled = true;
-        }
-
-        private void txtNomTest_Enter(object sender, EventArgs e)
-        {
-            RutaCompleta = "";
-            RutaCompleta = StrSistema + @"\" + StrProceso;
-            txtRutaTest.Text = RutaCompleta;
-            txtNomTest.Text = "";
-            txtTestDescr.Text = "";
-            groupBox4.Enabled = false;
+            if (txtCodModulo.Text == "")
+            {
+                txtCodModulo.Focus();
+                MessageBox.Show("Sr. Usuario:" + "\n" + "Debe ingresar el Sistema", this.Text);
+            }
             
         }
 
-        private void txtdesproceso_Validating(object sender, CancelEventArgs e)
+        private void txtCodModulo_LostFocus(object sender, EventArgs e)
         {
-            StrProceso = txtdesproceso.Text.ToUpper().TrimEnd().TrimStart();
-            txtdesproceso.Text = StrProceso;
-            DesProceso = StrProceso;
-            RutaCompleta = "";
-            RutaCompleta = StrSistema + @"\" + StrProceso;
-            txtRutaTest.Text = RutaCompleta;
-
+            blnHidden = true;
+            CmdBuscar0_Click(sender, e);
+            blnHidden = false;
         }
 
-        private void txtdesproceso_Enter(object sender, EventArgs e)
+        private void txtCodProceso_LostFocus(object sender, EventArgs e)
         {
-            RutaCompleta = "";
-            RutaCompleta = StrSistema + @"\";
-            txtNomTest.Text = "";
-            txtRutaTest.Text = RutaCompleta;
+            blnHidden = true;
+            CmdBuscar1_Click(sender, e);
+            blnHidden = false;
         }
 
-        private string NomEquipo;
 
-        public bool pFuncValidaPermisoAcceso()
+
+        private void txtCodModulo_TextChanged(object sender, EventArgs e)
         {
-            bool pblnValidaPermisoAcceso = false;
-
-            bool pblnBuscar;
-            string pStrmiEquipo;
-            NomEquipo = System.Environment.MachineName;
-            pResultado = new ConexionBD();
-            if (pResultado.Conectado)
-            {
-                pblnBuscar = true;
-            }
-            else
-            {
-                pResultado.Conectar(pStringConex);
-                pblnBuscar = true;
-            }
-            if (pblnBuscar)
-            {
-                pStrmiEquipo = pResultado.RetornaunCampoConSQL("Select NomEquipo FROM [DBO].[RB_TblEquipos] WHERE NomEquipo = '" + NomEquipo + "'");
-
-                if (pStrmiEquipo != null && pStrmiEquipo != "")
-                {
-                    //VarGlobales.GblnPermisoRobotica = true;
-                    pblnValidaPermisoAcceso = true;
-                }
-                else
-                { }
-            }
-            else
-            {
-                MessageBox.Show("Sr.Usuario: " + "\n" + "Debe Conectarse a la Base de datos para poder acceder", this.Text);
-            }
-
-            return pblnValidaPermisoAcceso;
-        }
-
-        private void CmdBuscar0_Click(object sender, EventArgs e)
-        {
-            Frm_buscador dbfForm1 = new Frm_buscador();
-            dbfForm1.pStringConex = pStringConex;
-            //dbfForm1.pStrSQLTest = "SELECT Cod_Modulo as Codigo, Descripcion  as Descripcion from [DBO].[rb_tblModulos]";
-            dbfForm1.nomTabla = "rb_tblModulos";
-            dbfForm1.Codigo = "Cod_Modulo";
-            dbfForm1.descripcion = "Descripcion";
-            dbfForm1.blnIndicaOrdenASC = true;
-            dbfForm1.gcodigoVALOR = txtCodModulo.Text;
-            dbfForm1.gdescriVALOR = txtdesmodulo.Text;
-
-            if (blnHidden)
-            {
-                dbfForm1.pfbln_buscar(txtCodModulo.Text);
-            }
-            else
-            {
-                dbfForm1.ShowDialog();
-            }
-            txtCodModulo.Text = dbfForm1.gcodigoVALOR;
-            txtdesmodulo.Text = dbfForm1.gdescriVALOR;
-            CodSistema = dbfForm1.gcodigoVALOR;
-            codDescSiste = dbfForm1.gdescriVALOR;
+            txtRutaTest.Text = "";
             txtcodproceso.Text = "";
             txtdesproceso.Text = "";
-            txtNomTest.Text = "";
-            StrSistema = CodSistema.ToUpper()+ @"\TEST" ;
-            txtRutaTest.Text = CodSistema.ToUpper() + @"\TEST";
         }
 
-        private void CmdBuscar1_Click(object sender, EventArgs e)
-        {
-            Frm_buscador dbfForm1 = new Frm_buscador();
-            dbfForm1.pStringConex = pStringConex;
-            //dbfForm1.pStrSQLTest = "SELECT Cod_Modulo as Codigo, Descripcion  as Descripcion from [DBO].[rb_tblModulos]";
-            dbfForm1.nomTabla = "rb_tblProcesos";
-            dbfForm1.Codigo = "Cod_Proceso";
-            dbfForm1.descripcion = "Descripcion";
-            dbfForm1.pstrCondAnexa = " cod_modulo = '" + txtCodModulo.Text.ToUpper() + "'";
-            dbfForm1.gcodigoVALOR = txtcodproceso.Text.ToUpper();
-            dbfForm1.gdescriVALOR = txtdesproceso.Text;
-
-            dbfForm1.blnIndicaOrdenASC = true;
-            if (blnHidden)
-            {
-                dbfForm1.pfbln_buscar(txtCodModulo.Text);
-            }
-            else
-            {
-                dbfForm1.ShowDialog();
-            }
-            if (txtcodproceso.Text != dbfForm1.Codigo)
-            {
-                // txtRutaTest.Text = "";
-                // GrillaRuta.DataSource = "";
-            }
-            txtcodproceso.Text = dbfForm1.gcodigoVALOR;
-            txtdesproceso.Text = dbfForm1.gdescriVALOR;
-            CodProceso = dbfForm1.gcodigoVALOR;
-            DesProceso = dbfForm1.gdescriVALOR;
-            StrProceso = DesProceso.ToUpper();
-            txtNomTest.Text = "";
-            RutaCompleta = "";
-            RutaCompleta = StrSistema + @"\" + StrProceso;
-            txtRutaTest.Text = RutaCompleta;
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-                txtcodproceso.Visible = true;
-                txtdesproceso.Enabled = true;
-                CmdBuscar1.Visible = true;
-                txtdesproceso.Text = "";
-                label4.Text = "SELECCIONE PROCESO EXISTENTE";
-                txtdesproceso.ReadOnly = true;
-                txtcodproceso.ReadOnly = true;
-
-            }
-            else
-            {
-                txtcodproceso.Text = "";
-                txtcodproceso.Visible = false;
-                txtdesproceso.Enabled = true;
-                CmdBuscar1.Visible = false;
-                txtdesproceso.Text = "";
-                label4.Text = "NOMBRE NUEVO PROCESO";
-                txtdesproceso.ReadOnly = false;
-                txtcodproceso.ReadOnly = false;
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void txtdesmodulo_Validating(object sender, CancelEventArgs e)
-        {
-            if (txtdesmodulo.Text == "")
-            {
-                groupProceso.Enabled = false;
-                GrNomTest.Enabled = false;
-            }
-            else
-            {
-                groupProceso.Enabled = true;
-                 GrNomTest.Enabled = true;
-            }
-        }
-
-        private void txtdesmodulo_TextChanged(object sender, EventArgs e)
-        {
-            if (txtdesmodulo.Text == "")
-            {
-                groupProceso.Enabled = false;
-                GrNomTest.Enabled = false;
-            }
-            else
-            {
-                groupProceso.Enabled = true;
-                GrNomTest.Enabled = true;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Validate system selection
-                if (string.IsNullOrEmpty(CodSistema.ToString()))
-                {
-                    MessageBox.Show("Debe seleccionar el sistema para poder crear test",
-                                  "Creacion de test",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                // Validate process selection
-                if (string.IsNullOrEmpty(DesProceso.ToString()))
-                {
-                    MessageBox.Show("Debe seleccionar el proceso o escribir un nuevo proceso para continuar.",
-                                  "Creacion de test",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                // Validate test name
-                if (string.IsNullOrEmpty(txtNomTest.Text))
-                {
-                    MessageBox.Show("Debe escribir el nombre del test para continuar.",
-                                  "Creación de test",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    txtNomTest.Focus();
-                    return;
-                }
-
-                // Validate Azure ID
-                if (string.IsNullOrEmpty(AzureIDtxt.Text))
-                {
-                    MessageBox.Show("Azure ID no puede estar vacío",
-                                  "Error de validación",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    AzureIDtxt.Focus();
-                    return;
-                }
-                if (!System.Text.RegularExpressions.Regex.IsMatch(AzureIDtxt.Text, @"^\d+$"))
-                {
-                    MessageBox.Show("Azure ID solo puede contener números",
-                                  "Error de validación",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    AzureIDtxt.Focus();
-                    return;
-                }
-                // If all validations pass, proceed with test creation
-                Val_Ruta_ExistenTest();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error inesperado: {ex.Message}",
-                              "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void Val_Ruta_ExistenTest()
+        private void Btn_Extraer_Click(object sender, EventArgs e)
         {
             string mivar;
             string mivar1;
             string mivar2;
             string pstrSql;
 
-            pResultado.StrCONADO = pStringConex;
-            string Nomproceso;
 
+            string Nomproceso;
+            
             bool pblnRutaCorrecta = false;
             bool pblntestExiste = false;
 
@@ -326,11 +108,12 @@ namespace Calidad.Formularios
 
             if (txtRutaTest.Text != "")
             {
-                mivar = unidad + this.txtRutaTest.Text + "\\";
+                mivar = this.txtRutaTest.Text + "\\";
 
                 ArrayList list = new ArrayList();
-                GrillaRuta.DataSource = "";
 
+              
+                GrillaRuta.DataSource = "";
                 int pintvalidaniveles = 0;
                 int largo;
                 largo = mivar.Length;
@@ -343,17 +126,19 @@ namespace Calidad.Formularios
                 }
                 else
                 {
-                    pResultado.Conectar(pStringConex);
+                pResultado.Conectar(pStringConex);
                 }
                 int n = 1;
                 while (n <= largo)
                 {
                     pos = mivar1.IndexOf("\\");
 
+
                     largo = mivar1.Length;
 
                     mivar2 = mivar1.Substring(0, pos);
                     mivar1 = mivar1.Substring(pos + 1, largo - (pos + 1));
+
 
                     pintvalidaniveles = pintvalidaniveles + 1;
                     if (pintvalidaniveles == 2)
@@ -384,6 +169,7 @@ namespace Calidad.Formularios
                             }
                             Codproceso = Convert.ToString(CodprocesoNum);
 
+
                             largoCodProceso = Codproceso.Length;
                             if (largoCodProceso == 1)
                             {
@@ -394,11 +180,8 @@ namespace Calidad.Formularios
                             {
                                 Codproceso = "0" + Codproceso;
                             }
-
-                            list.Add(new AgregaTest(Codproceso, "Proceso", mivar2));
-                            unidad = @"\\GALILEO\PPRUEBAS4\";
-                            CrearDirectorio(@unidad + StrSistema + @"\" + StrProceso);
-                            @unidad = @"T:\";
+                            
+                            list.Add(new  AgregaTest(Codproceso, "Proceso", mivar2));
                         }
                         else
                         {
@@ -426,11 +209,13 @@ namespace Calidad.Formularios
                                 {
                                     pstrSql = pstrSql + " and Cod_tblCodproceso = '" + Codproceso + "'";
                                 }
+
                             }
                             else
                             {
                                 pstrSql = pstrSql + " and Cod_tblCodproceso = '" + txtcodproceso.Text + "'";
                             }
+
 
                             CodprocesoTBL = pResultado.RetornaunCampoConSQL(pstrSql);
 
@@ -445,6 +230,7 @@ namespace Calidad.Formularios
                             }
                             CodprocesoTBL = Convert.ToString(CodprocesoNumTBL);
 
+
                             largoCodProceso = CodprocesoTBL.Length;
                             if (largoCodProceso == 1)
                             {
@@ -457,232 +243,414 @@ namespace Calidad.Formularios
                             }
 
                             list.Add(new AgregaTest(CodprocesoTBL, "Test", mivar2));
-                            unidad = @"\\GALILEO\PPRUEBAS4\";
-                            CrearDirectorio(@unidad + StrSistema + @"\" + StrProceso + @"\" + StrTest);
-                            unidad = @"T:\";
                         }
                         else
                         {
                             pstrSql = "Select cod_proceso FROM [DBO].[RB_TblTestxProcesos] where Descripcion = '" + mivar2 + "'  and Cod_Modulo = '" + txtCodModulo.Text + "'";
                             CodprocesoTBL = pResultado.RetornaunCampoConSQL(pstrSql);
+                            list.Add(new AgregaTest(CodprocesoTBL, "Test", mivar2));
                             pblntestExiste = true;
                         }
                     }
 
                     largo = mivar1.Length;
+
+
                     n++;
+
                 }
                 pResultado.Desconectar();
                 if (pintniveles != pintvalidaniveles)
                 {
-                    const string message = "Sr.Usuario :" + "\n" + "Debe completar todos los campos son requeridos, verifique!";
-                    const string caption = "Informacion de creacion";
-                    var result = MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Sr.Usuario :" + "\n" + "Se requieren 4 niveles de subcarpetas para capturar un nuevo Test, verifique!", this.Text);
                 }
                 else
                 {
-                    if (pblntestExiste)
+                    
+                    if (list.Count == 0)
                     {
-                        const string message = "Sr.Usuario :" + "\n" + "El Test que intenta agregar ya existe!\n por favor verifique!";
-                        const string caption = "Informacion de creacion";
-                        var result = MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Sr.Usuario :" + "\n" + "El Test ya existe, verifique!", this.Text);
+                        CmdElimina.Enabled = true;
                     }
                     else
                     {
-                        StringBuilder errorMessages = new StringBuilder();
-                        try
+                        if (pblnRutaCorrecta)
                         {
-                            string codtblcodproceso;
-                            string nomproceso;
-                            string xcodproceso;
-                            string xnomproceso;
-                            string pStrSQL;
-
-                            if (GrillaRuta.RowCount == 1)
+                            GrillaRuta.DataSource = list;
+                            InicializaGrilla();
+                            if (pblntestExiste)
                             {
-                                codtblcodproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[0].Value);
-                                nomproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[2].Value);
-                                pStrSQL = "INSERT INTO [DBO].[RB_TblTestxProcesos] (Cod_modulo,Cod_proceso,cod_tblcodproceso,descripcion,estadotest,Objetivotest,fecha,AzureID) VALUES (";
-                                pStrSQL = pStrSQL + "'" + txtCodModulo.Text.ToUpper() + "',";
-                                pStrSQL = pStrSQL + "'" + codtblcodproceso + "',";
-                                pStrSQL = pStrSQL + "'" + Codproceso + "',";
-                                pStrSQL = pStrSQL + "'" + nomproceso.TrimEnd().TrimStart() + "',";
-                                pStrSQL = pStrSQL + "1,";
-                                pStrSQL = pStrSQL + "'" + txtObjetivo.Text.Replace("'", "") + "',";
-                                pStrSQL = pStrSQL + "convert(datetime,'" + fecha.Text + "',103),";
-                                pStrSQL = pStrSQL + "'" + AzureIDtxt.Text.Replace("'", "''") + "'";
-                                pStrSQL = pStrSQL + ")";
+                                MessageBox.Show("Sr.Usuario :" + "\n" + "El Test existe!", this.Text);
+                                this.Text = pstrTitulo + " - (Modifica)";
+                                CmdElimina.Enabled = true;
+                                CmdAgrega.Enabled = false;
+                                txtObjetivo.Enabled = false;
+                                txtnumot.Enabled = false;
 
-                                if (pResultado.Conectado)
-                                {
-                                    pResultado.EjecutaSQL(pStrSQL);
-                                }
-                                else
-                                {
-                                    pResultado.Conectar(pStringConex);
-                                    pResultado.EjecutaSQL(pStrSQL);
-                                }
                             }
                             else
                             {
-                                int iIndice;
-                                for (iIndice = 0; iIndice < (GrillaRuta.RowCount); iIndice++)
-                                {
-                                    if (iIndice == 0)
-                                    {
-                                        xcodproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[0].Value);
-                                        xnomproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[2].Value);
-                                        pStrSQL = "INSERT INTO [DBO].[RB_TblProcesos] (Cod_Proceso,Cod_Modulo,Descripcion,NumOT) VALUES (";
-                                        pStrSQL = pStrSQL + "'" + xcodproceso + "',";
-                                        pStrSQL = pStrSQL + "'" + txtCodModulo.Text.ToUpper() + "',";
-                                        pStrSQL = pStrSQL + "'" + xnomproceso.TrimEnd().TrimStart() + "',";
-                                        pStrSQL = pStrSQL + "'" + txtnumot.Text.Replace("'", "") + "')";
-                                    }
-                                    else
-                                    {
-                                        codtblcodproceso = Convert.ToString(GrillaRuta.Rows[1].Cells[0].Value);
-                                        nomproceso = Convert.ToString(GrillaRuta.Rows[1].Cells[2].Value);
-                                        pStrSQL = "INSERT INTO [DBO].[RB_TblTestxProcesos] (Cod_modulo,Cod_proceso,cod_tblcodproceso,descripcion,estadotest,Objetivotest,fecha,AzureID) VALUES (";
-                                        pStrSQL = pStrSQL + "'" + txtCodModulo.Text.ToUpper() + "',";
-                                        pStrSQL = pStrSQL + "'" + codtblcodproceso + "',";
-                                        pStrSQL = pStrSQL + "'" + Codproceso + "',";
-                                        pStrSQL = pStrSQL + "'" + nomproceso.TrimEnd().TrimStart() + "',";
-                                        pStrSQL = pStrSQL + "1,";
-                                        pStrSQL = pStrSQL + "'" + txtObjetivo.Text.Replace("'", "") + "',";
-                                        pStrSQL = pStrSQL + "convert(datetime,'" + fecha.Text + "',103),";
-                                        pStrSQL = pStrSQL + "'" + AzureIDtxt.Text.Replace("'", "''") + "'";
-                                        pStrSQL = pStrSQL + ")";
-                                    }
+                                this.Text = pstrTitulo + " - (Agrega)";
+                                CmdElimina.Enabled = false;
+                                CmdAgrega.Enabled = true;
+                                txtObjetivo.Enabled = true;
+                                txtnumot.Enabled = true;
 
-                                    if (pResultado.Conectado)
-                                    {
-                                        pResultado.EjecutaSQL(pStrSQL);
-                                    }
-                                    else
-                                    {
-                                        pResultado.Conectar(pStringConex);
-                                        pResultado.EjecutaSQL(pStrSQL);
-                                    }
-                                }
-                                txtCodModulo.Text = "";
-                                txtdesmodulo.Text = "";
-                                txtcodproceso.Text = "";
-                                txtdesproceso.Text = "";
-                                txtTestDescr.Text = "";
-                                txtNomTest.Text = "";
-                                txtObjetivo.Text = "";
-                                txtnumot.Text = "";
-                                AzureIDtxt.Text = "";
                             }
-                            string pat = txtRutaTest.Text;
-                            string message = "Sr. Usuario :" + "\n" + "Test agregado correctamente\nse creo el siguiente path(" + pat + ")!";
-                            string caption = "Creacion de test";
-                            var result = MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtRutaTest.Text = "";
-                            GrillaRuta.DataSource = "";
                         }
-                        catch (SqlException ex)
+                        else
                         {
-                            for (int i = 0; i < ex.Errors.Count; i++)
-                            {
-                                errorMessages.Append("Index #" + i + "\n" +
-                               "Mensaje         : " + ex.Errors[i].Message + "\n" +
-                               "Número de Línea : " + ex.Errors[i].LineNumber + "\n" +
-                               "Origen          : " + ex.Errors[i].Source + "\n" +
-                               "Procedimiento   : " + ex.Errors[i].Procedure + "\n");
-                                MessageBox.Show(errorMessages.ToString(), "Detección de Anomalía");
-                            }
+                            MessageBox.Show("Sr.Usuario :" + "\n" + "El Directorio seleccionado no corresponde a la ruta donde se encuentras los Test, verifique!", this.Text);
                         }
                     }
                 }
             }
             else
             {
-                const string message = "Sr.Usuario :" + "\n" + "Ingrese los datos faltantes!";
-                const string caption = "Informacion de creacion";
-                var result = MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sr.Usuario :" + "\n" + "Ingrese los datos faltantes!", this.Text);
             }
+           // mivar1 = "\\\\galileo\\ppruebas" + mivar.Substring(2, largo - 2);
         }
 
 
-        public void CrearDirectorio(string RutaPath)
+        private static string pFunc_BuscaString(string item)
         {
-            // Specify the directory you want to manipulate.
-            string path = @RutaPath;
 
-            try
+            // try to find a tag at the start of the line using StartsWith
+            if (item.Trim().StartsWith("\\"))
             {
-                // Determine whether the directory exists.
-                if (Directory.Exists(path))
-                {
-                    Console.WriteLine("Directorio ya Existe.");
-                    return;
-                }
 
-                // Try to create the directory.
-                DirectoryInfo di = Directory.CreateDirectory(path);
-                Console.WriteLine("Directorio proceso creado {0}.", Directory.GetCreationTime(path));
+                // now search for the closing tag...
+                int lastLocation = item.IndexOf("\\");
 
-                // Delete the directory.
-                //di.Delete();
-                //Console.WriteLine("The directory was deleted successfully.");
+                // remove the identified section, if it is a valid region
+                if (lastLocation >= 0)
+                    item = item.Substring(lastLocation + 1);
             }
-            catch (Exception e)
+
+            return item;
+        }
+
+        private void cmdSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void chkProcesoExiste_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkProcesoExiste.Checked)
             {
-                Console.WriteLine("Creacion de directorio a fallado: {0}", e.ToString());
+                groupProceso.Enabled = true;
             }
-            finally { }
+            else
+            {
+                groupProceso.Enabled = false;
+                chkProcesoExiste.Enabled = true;
+            }
+            txtcodproceso.Text = "";
+            txtdesproceso.Text = "";
+            GrillaRuta.DataSource = "";
+            txtRutaTest.Text = "";
+            Btn_Extraer.Enabled = false;
 
         }
 
-
-        public void EliminarDirectorio(string RutaPath)
+     
+        private void InicializaGrilla()
         {
-            // Specify the directory you want to manipulate.
-            string path = @RutaPath;
+            // Automatically resize the visible rows.
+            GrillaRuta.AutoSizeRowsMode =
+                DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
 
+            // Set the DataGridView control's border.
+            GrillaRuta.BorderStyle = BorderStyle.Fixed3D;
+
+            // Put the cells in edit mode when user enters them.
+            GrillaRuta.EditMode = DataGridViewEditMode.EditOnEnter;
+           // GrillaRuta.Columns[0].HeaderText = "Módulo";
+           // GrillaRuta.Columns[1].HeaderText = "Descripción";
+
+            GrillaRuta.Columns[0].Width = 70; //AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            GrillaRuta.Columns[1].Width = 70; //AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            GrillaRuta.Columns[2].Width = 250; //AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+        }
+
+        private void txtRutaTest_TextChanged(object sender, EventArgs e)
+        {
+            if (txtRutaTest.Text == "")
+            {
+                Btn_Extraer.Enabled = false;
+                CmdAgrega.Enabled = false;
+            }
+        }
+
+        private void CmdAgrega_Click(object sender, EventArgs e)
+        {
+            StringBuilder errorMessages = new StringBuilder();
             try
             {
-                // Determine whether the directory exists.
-                if (Directory.Exists(path))
-                {
-                    Directory.Delete(RutaPath, true);
-                    Console.WriteLine("Directorio proceso creado {0}.", Directory.GetCreationTime(path));
-                    
-                }
+                //para la tabla RB_tbltestXproceso
+                string codtblcodproceso;
+                string nomproceso;
 
+                //para la tabla RB_tblproceso
+                string xcodproceso;
+                string xnomproceso;    
+                string pStrSQL;
+
+                if (GrillaRuta.RowCount == 1)
+                {
+
+                    codtblcodproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[0].Value);
+                    nomproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[2].Value);
+                    pStrSQL = "INSERT INTO [DBO].[RB_TblTestxProcesos] (Cod_modulo,Cod_proceso,cod_tblcodproceso,descripcion,estadotest,Objetivotest, AzureID,fecha) VALUES (";
+                    pStrSQL = pStrSQL + "'" + txtCodModulo.Text.ToUpper() + "',";
+                    pStrSQL = pStrSQL + "'" + codtblcodproceso  + "',";
+                    pStrSQL = pStrSQL + "'" + Codproceso + "',";
+                    pStrSQL = pStrSQL + "'" + nomproceso + "',";
+                    pStrSQL = pStrSQL + "1,";
+                    pStrSQL = pStrSQL + "'" + txtObjetivo.Text.Replace("'", "") + "',";
+                    pStrSQL = pStrSQL + "'" + txtAzureID.Text.Replace("'", "") + "',";
+                    pStrSQL = pStrSQL + "convert(datetime,'" + fecha.Text + "',103)";
+                    pStrSQL = pStrSQL + ")";
+
+                    if (pResultado.Conectado)
+                    {
+                        pResultado.EjecutaSQL(pStrSQL);
+                    }
+                    else
+                    {
+                        pResultado.Conectar(pStringConex);
+                        pResultado.EjecutaSQL(pStrSQL);
+                    }
+
+
+                }
                 else
                 {
-                    Console.WriteLine("Directorio No Existe.");
-                    
-                }
-                // Try to create the directory.
-             
+                    int iIndice;
+                    for (iIndice = 0; iIndice < (GrillaRuta.RowCount); iIndice++)
+                    {
+                        if (iIndice == 0)
+                        {
+                            xcodproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[0].Value);
+                            xnomproceso = Convert.ToString(GrillaRuta.Rows[0].Cells[2].Value);
+                            pStrSQL = "INSERT INTO [DBO].[RB_TblProcesos] (Cod_Proceso,Cod_Modulo, Descripcion,NumOT) VALUES (";
+                            pStrSQL = pStrSQL + "'" + xcodproceso + "',";
+                            pStrSQL = pStrSQL + "'" + txtCodModulo.Text.ToUpper() + "',";
+                            pStrSQL = pStrSQL + "'" + xnomproceso + "',";
+                            pStrSQL = pStrSQL + "'" + txtnumot.Text.Replace("'", "") + "')";
 
-                // Delete the directory.
-                //di.Delete();
-                //Console.WriteLine("The directory was deleted successfully.");
+                        }
+                        else
+                        {
+
+                            codtblcodproceso = Convert.ToString(GrillaRuta.Rows[1].Cells[0].Value);
+                            nomproceso = Convert.ToString(GrillaRuta.Rows[1].Cells[2].Value);
+                            pStrSQL = "INSERT INTO [DBO].[RB_TblTestxProcesos] (Cod_modulo,Cod_proceso,cod_tblcodproceso,descripcion,estadotest,Objetivotest, AzureID,fecha) VALUES (";
+                            pStrSQL = pStrSQL + "'" + txtCodModulo.Text.ToUpper() + "',";
+                            pStrSQL = pStrSQL + "'" + codtblcodproceso  + "',";
+                            pStrSQL = pStrSQL + "'" + Codproceso + "',";
+                            pStrSQL = pStrSQL + "'" + nomproceso + "',";
+                            pStrSQL = pStrSQL + "1,";
+                            pStrSQL = pStrSQL + "'" + txtObjetivo.Text.Replace("'", "") + "',";
+                            pStrSQL = pStrSQL + "'" + txtAzureID.Text.Replace("'", "") + "',";
+                            pStrSQL = pStrSQL + "convert(datetime,'" + fecha.Text + "',103)";
+                            pStrSQL = pStrSQL + ")";
+
+                        }
+
+                        if (pResultado.Conectado)
+                        {
+                            pResultado.EjecutaSQL(pStrSQL);
+                        }
+                        else
+                        {
+                            pResultado.Conectar(pStringConex);
+                            pResultado.EjecutaSQL(pStrSQL);
+                        }
+
+
+                    }
+                    txtCodModulo.Text = "";
+                    txtdesmodulo.Text = "";
+                    txtcodproceso.Text = "";
+                    txtdesproceso.Text = "";
+                }
+                MessageBox.Show("Sr. Usuario :" + "\n" + "Test agregado correctamente!", this.Text);
+                txtRutaTest.Text = "";
+                txtObjetivo.Text = "";
+                txtAzureID.Text = "";
+                txtnumot.Text = "";
+                GrillaRuta.DataSource = "";
+                CmdAgrega.Enabled = false;
+                this.Text = pstrTitulo;
+
+
             }
-            catch (Exception e)
+            catch (SqlException ex)
             {
-                Console.WriteLine("Creacion de directorio a fallado: {0}", e.ToString());
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                    errorMessages.Append("Index #" + i + "\n" +
+                   "Mensaje         : " + ex.Errors[i].Message + "\n" +
+                   "Número de Línea : " + ex.Errors[i].LineNumber + "\n" +
+                   "Origen          : " + ex.Errors[i].Source + "\n" +
+                   "Procedimiento   : " + ex.Errors[i].Procedure + "\n");
+                    MessageBox.Show(errorMessages.ToString(), "Detección de Anomalía");
+                }
             }
-            finally { }
 
         }
 
+        private void CmdElimina_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Sr.Usuario :" + "\n" + "¿Desea eliminar sólo el TEST?" + "\n" , this.Text,
+                 MessageBoxButtons.YesNo,
+                 MessageBoxIcon.Question);
 
-        private void button3_Click(object sender, EventArgs e)
+            if (result == DialogResult.No)
+            {
+
+                var result1 = MessageBox.Show("Sr.Usuario :" + "\n" + "¿Desea eliminar el PROCESO y TESTs dependientes?" + "\n" , this.Text,
+                     MessageBoxButtons.YesNo,
+                     MessageBoxIcon.Question);
+
+                if (result1 == DialogResult.Yes)
+                {
+                    //ELIMINAR
+                    //SELECT * from [DBO].[RB_TblTestxProcesos] where Cod_modulo  ='HW' AND COD_TBLCODPROCESO = '012'
+                    //AND  Descripcion = 'Estadisticas De helpDesk'
+                    //SELECT * from [DBO].[RB_TblTestxProcesos] 
+                    //where Cod_modulo  ='HW' AND Cod_tblCodproceso = '012' AND Cod_proceso= '007' 
+
+
+                    FrmPassword dbform = new FrmPassword();
+                    dbform.pStringConex = pStringConex;
+                    dbform.ptitulo = this.Text;
+                    dbform.pStringElimina = "Delete from [DBO].[RB_TblTestxProcesos] where Cod_modulo  ='" + txtCodModulo.Text + "' AND COD_TBLCODPROCESO = '" + txtcodproceso.Text + "'";
+                    dbform.pStringElimina2 = "Delete from [DBO].[RB_TblProcesos] where Cod_modulo  ='" + txtCodModulo.Text + "' AND cod_proceso = '" + txtcodproceso.Text + "'";
+                    dbform.ShowDialog();
+                    MessageBox.Show("Sr. Usuario: " + "\n"+ "PROCESO Y TESTs eliminados correctamente",this.Text);
+                }
+
+            }
+            else
+            {
+                FrmPassword dbform = new FrmPassword();
+                dbform.pStringConex = pStringConex;
+                dbform.ptitulo = this.Text;
+                dbform.pStringElimina = "Delete from [DBO].[RB_TblTestxProcesos] where Cod_modulo  ='" + txtCodModulo.Text + "' AND COD_TBLCODPROCESO = '" + txtcodproceso.Text + "' AND cod_proceso = '" + Convert.ToString(GrillaRuta.Rows[0].Cells[0].Value) + "'";
+                dbform.ShowDialog();
+                //if (dbform.pblnCancelo)
+                MessageBox.Show("Sr. Usuario: " + "\n" + "TEST eliminado correctamente", this.Text);
+
+            }
+
+
+            GrillaRuta.DataSource = "";
+            txtRutaTest.Text = "";
+            txtCodModulo.Text = "";
+            txtdesmodulo.Text = "";
+            txtcodproceso.Text = "";
+            txtdesproceso.Text = "";
+
+            Btn_Extraer.Enabled = false;
+            CmdAgrega.Enabled =false;
+            CmdElimina.Enabled=false;
+            this.Text = pstrTitulo;
+
+        }
+
+        private void btn_RutaTest_Click(object sender, EventArgs e)
+        {
+            bool blnAnaliza = false;
+
+            //Validar los datos
+            if (txtCodModulo.Text == "")
+            {
+                MessageBox.Show("Sr. Usuario:" + "\n" + "Debe ingresar el Sistema", this.Text);
+                blnAnaliza = false;
+            }
+            else
+            { blnAnaliza = true; }
+
+            if (chkProcesoExiste.Checked)
+            {
+                if (txtcodproceso.Text == "")
+                {
+                    MessageBox.Show("Sr. Usuario:" + "\n" + "Debe ingresar el Proceso", this.Text);
+                    blnAnaliza = false;
+                }
+                else
+                { blnAnaliza = true; }
+            }
+
+
+
+            if (blnAnaliza)
+            {
+                //Limpia Grilla
+                ArrayList list = new ArrayList();
+                GrillaRuta.DataSource = list;
+
+
+
+                Directorio = "V:\\" + txtCodModulo.Text + "\\Test\\";
+                if (chkProcesoExiste.Checked)
+                {
+                    if (txtdesproceso.Text != "")
+                    {
+                        Directorio = Directorio + txtdesproceso.Text + "\\";
+                    }
+                }
+                FolderDialog.Description = "Seleccionar Ruta del Test";
+                FolderDialog.SelectedPath = Directorio;
+                FolderDialog.ShowNewFolderButton = false;
+                FolderDialog.ShowDialog();
+                txtRutaTest.Text = FolderDialog.SelectedPath;
+                Btn_Extraer.Enabled = true;
+            }
+        }
+
+
+
+        private void CmdBuscar0_Click(object sender, EventArgs e)
         {
             Frm_buscador dbfForm1 = new Frm_buscador();
             dbfForm1.pStringConex = pStringConex;
             //dbfForm1.pStrSQLTest = "SELECT Cod_Modulo as Codigo, Descripcion  as Descripcion from [DBO].[rb_tblModulos]";
-            dbfForm1.nomTabla = "RB_TblTestxProcesos";
+            dbfForm1.nomTabla = "rb_tblModulos";
+            dbfForm1.Codigo = "Cod_Modulo";
+            dbfForm1.descripcion = "Descripcion";
+            dbfForm1.blnIndicaOrdenASC = true;
+            dbfForm1.gcodigoVALOR = txtCodModulo.Text ;
+            dbfForm1.gdescriVALOR = txtdesmodulo.Text;
+
+            if (blnHidden)
+            {
+                dbfForm1.pfbln_buscar(txtCodModulo.Text);
+            }
+            else
+            {
+                dbfForm1.ShowDialog();
+            }
+            txtCodModulo.Text = dbfForm1.gcodigoVALOR;
+            txtdesmodulo.Text = dbfForm1.gdescriVALOR;
+
+        }
+
+        private void CmdBuscar1_Click(object sender, EventArgs e)
+        {
+            Frm_buscador dbfForm1 = new Frm_buscador();
+            dbfForm1.pStringConex = pStringConex;
+            //dbfForm1.pStrSQLTest = "SELECT Cod_Modulo as Codigo, Descripcion  as Descripcion from [DBO].[rb_tblModulos]";
+            dbfForm1.nomTabla = "rb_tblProcesos";
             dbfForm1.Codigo = "Cod_Proceso";
             dbfForm1.descripcion = "Descripcion";
-            dbfForm1.pstrCondAnexa = " cod_modulo = '" + txtCodModulo.Text.ToUpper() + "' AND cod_tblCodproceso = '" + txtcodproceso.Text.ToUpper() + "'";
+            dbfForm1.pstrCondAnexa = " cod_modulo = '" + txtCodModulo.Text.ToUpper() + "'";
             dbfForm1.gcodigoVALOR = txtcodproceso.Text.ToUpper();
-            dbfForm1.gdescriVALOR = txtdesproceso.Text.TrimEnd().TrimStart();
+            dbfForm1.gdescriVALOR = txtdesproceso.Text;
 
             dbfForm1.blnIndicaOrdenASC = true;
             if (blnHidden)
@@ -695,156 +663,65 @@ namespace Calidad.Formularios
             }
             if (txtcodproceso.Text != dbfForm1.Codigo)
             {
-                // txtRutaTest.Text = "";
-                // GrillaRuta.DataSource = "";
+                txtRutaTest.Text = "";
+                GrillaRuta.DataSource = "";
             }
-            txtTestDescr.Text = dbfForm1.gcodigoVALOR;
-            txtNomTest.Text = dbfForm1.gdescriVALOR;
-
-            StrTest = txtNomTest.Text.ToUpper();
-            RutaCompleta = "";
-            RutaCompleta = StrSistema + @"\" + StrProceso + @"\" + StrTest;
-            txtRutaTest.Text = RutaCompleta;
-            groupBox4.Enabled = true;
-
+            txtcodproceso.Text = dbfForm1.gcodigoVALOR;
+            txtdesproceso.Text = dbfForm1.gdescriVALOR;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void txtCodModulo_TextChanged_1(object sender, EventArgs e)
         {
+            txtcodproceso.Text = "";
+            txtdesproceso.Text = "";
+        }
 
-            if (pFuncValidaPermisoAcceso())
+        private void OptTestExistente_CheckedChanged(object sender, EventArgs e)
+        {
+            grcreanuevo.Enabled = false;
+            grTestExistente.Enabled = true;
+        }
+
+        private void OptCarpetaExiste_CheckedChanged(object sender, EventArgs e)
+        {
+            grcreanuevo.Enabled = true;
+            grTestExistente.Enabled = false;
+        }
+
+        private void CmdCrear_Click(object sender, EventArgs e)
+        {
+            if (txtCodModulo.Text != "")
             {
+                Directorio = "V:\\" + txtCodModulo.Text + "\\Test\\";
+                if (txtnombretest.Text != "")
+                {
+                    Directorio = Directorio + txtnombretest.Text + "\\";
+                    //Create a new subfolder under the current active folder
+                    string newPath = System.IO.Path.Combine(Directorio, "mySubDir");
 
-                        var result = MessageBox.Show("Sr.Usuario :" + "\n" + "¿Desea eliminar sólo el TEST?\n\nInformacion! Solo se podra eliminar el test del proceso por temas de seguridad en eliminacion\nNO se permitira eliminar la raiz o proceso padre." + "\n", this.Text,
-                             MessageBoxButtons.YesNo,
-                             MessageBoxIcon.Question);
+                    // Create the subfolder
+                    System.IO.Directory.CreateDirectory(newPath);
 
-                        if (result == DialogResult.No)
-                        {
+                }
+                else
+                {
 
-                            var result1 = MessageBox.Show("Sr.Usuario :" + "\n" + "¿Desea eliminar el PROCESO y TESTs dependientes?\nOpcion no habilitada por seguridad en la eliminacion. HCS" + "\n", this.Text,
-                                 MessageBoxButtons.YesNo,
-                                 MessageBoxIcon.Question);
-
-                            if (result1 == DialogResult.Yes)
-                            {
-                                //ELIMINAR
-                                //SELECT * from [DBO].[RB_TblTestxProcesos] where Cod_modulo  ='HW' AND COD_TBLCODPROCESO = '012'
-                                //AND  Descripcion = 'Estadisticas De helpDesk'
-                                //SELECT * from [DBO].[RB_TblTestxProcesos] 
-                                //where Cod_modulo  ='HW' AND Cod_tblCodproceso = '012' AND Cod_proceso= '007' 
-                                //Eliminar todos no aparesca en la lista de desplegdos o test
-                                //Select Cod_proceso,descripcion,Cod_modulo, NumOT  from [DBO].[rb_tblprocesos] where cod_modulo = 'SW'
-                                //                                                                              and Cod_Proceso = '024'
-
-
-                                FrmPassword dbform = new FrmPassword();
-                                dbform.pStringConex = pStringConex;
-                                dbform.ptitulo = this.Text;
-                                //  dbform.pStringElimina = "Delete from [DBO].[RB_TblTestxProcesos] where Cod_modulo  ='" + txtCodModulo.Text + "' AND COD_TBLCODPROCESO = '" + txtcodproceso.Text + "'";
-                                //  dbform.pStringElimina2 = "Delete from [DBO].[RB_TblProcesos] where Cod_modulo  ='" + txtCodModulo.Text + "' AND cod_proceso = '" + txtcodproceso.Text + "'";
-                                dbform.ShowDialog();
-                                //MessageBox.Show("Sr. Usuario: " + "\n" + "PROCESO Y TESTs eliminados correctamente", this.Text);
-                                MessageBox.Show("Sr. Usuario: " + "\n" + "NO se elimino el proceso ya que puede contener inforacion de mas de un test\nPara Eliminar comunicate con robotizacion.", this.Text);
-                            }
-
-                        }
-                        else
-                        {
-
-                            //if (dbform.pblnCancelo)
-
-                            if (txtTestDescr.Text == "")
-                            {
-                                const string message = "Sr.Usuario :" + "\n" + "Debe ingresar todos los niveles para eliminar!";
-                                const string caption = "Informacion de Eliminacion";
-                                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            }
-                            else
-                            {
-                                FrmPassword dbform = new FrmPassword();
-                                dbform.pStringConex = pStringConex;
-                                dbform.ptitulo = this.Text;
-                                dbform.pStringElimina = "Delete from [DBO].[RB_TblTestxProcesos] where Cod_modulo  ='" + txtCodModulo.Text + "' AND COD_TBLCODPROCESO = '" + txtcodproceso.Text + "' AND cod_proceso = '" + txtTestDescr.Text + "'";
-                                dbform.ShowDialog();
-
-                                unidad = @"\\GALILEO\PPRUEBAS4\";
-                                EliminarDirectorio(@unidad + StrSistema + @"\" + StrProceso + @"\" + StrTest);
-                                unidad = @"T:\";
-                                MessageBox.Show("Sr. Usuario: " + "\n" + "TEST eliminado correctamente", this.Text);
-                            }
-                        }
-
-
-                        GrillaRuta.DataSource = "";
-                        txtRutaTest.Text = "";
-                        txtCodModulo.Text = "";
-                        txtdesmodulo.Text = "";
-                        txtcodproceso.Text = "";
-                        txtdesproceso.Text = "";
-
-                        txtTestDescr.Text = "";
-                        txtNomTest.Text = "";
-                        txtObjetivo.Text = "";
-                        txtnumot.Text = "";               
-
+                }
             }
             else
             {
-                MessageBox.Show("Sr.Usuario: " + "\n" + "Ud. No tiene permisos para acceder a esta opción.", this.Text);
+                MessageBox.Show("Señor Usuario:\nEs necesario seleccionar el sistema para crear el proceso.",
+                                  "Sigla Sistema", MessageBoxButtons.OK,
+                                  MessageBoxIcon.Information); 
+ 
             }
 
 
-
-          
         }
 
-        private void groupProceso_Enter(object sender, EventArgs e)
-        {
 
-        }
+      
+           
 
-        private void AzureIDtxt_TextChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtdesproceso_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Validating(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
-            {
-                FileName = @unidad + @txtRutaTest.Text,
-                UseShellExecute = true,
-                Verb = "open"
-            });
-        }
-
-        private void txtNomTest_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
- 
-
-
-
- 
     }
 }
