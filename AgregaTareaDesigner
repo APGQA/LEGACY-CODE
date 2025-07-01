@@ -1,0 +1,542 @@
+namespace Calidad.Formularios
+{
+    partial class FrmAgregaTest3
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAgregaTest3));
+            this.groupProceso = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.CmdBuscar1 = new System.Windows.Forms.Button();
+            this.txtdesproceso = new System.Windows.Forms.TextBox();
+            this.txtcodproceso = new System.Windows.Forms.TextBox();
+            this.groupModulo = new System.Windows.Forms.GroupBox();
+            this.CmdBuscar0 = new System.Windows.Forms.Button();
+            this.txtdesmodulo = new System.Windows.Forms.TextBox();
+            this.txtCodModulo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.GrNomTest = new System.Windows.Forms.GroupBox();
+            this.txtTestDescr = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.txtNomTest = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtRutaTest = new System.Windows.Forms.TextBox();
+            this.GrillaRuta = new System.Windows.Forms.DataGridView();
+            this.fecha = new System.Windows.Forms.DateTimePicker();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtnumot = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtObjetivo = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.labelAzure = new System.Windows.Forms.Label();
+            this.txtAzureID = new System.Windows.Forms.TextBox();
+            this.groupProceso.SuspendLayout();
+            this.groupModulo.SuspendLayout();
+            this.GrNomTest.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GrillaRuta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupProceso
+            // 
+            this.groupProceso.BackColor = System.Drawing.Color.Transparent;
+            this.groupProceso.Controls.Add(this.checkBox1);
+            this.groupProceso.Controls.Add(this.label4);
+            this.groupProceso.Controls.Add(this.CmdBuscar1);
+            this.groupProceso.Controls.Add(this.txtdesproceso);
+            this.groupProceso.Controls.Add(this.txtcodproceso);
+            this.groupProceso.Enabled = false;
+            this.groupProceso.ForeColor = System.Drawing.Color.Indigo;
+            this.groupProceso.Location = new System.Drawing.Point(369, 145);
+            this.groupProceso.Margin = new System.Windows.Forms.Padding(4);
+            this.groupProceso.Name = "groupProceso";
+            this.groupProceso.Padding = new System.Windows.Forms.Padding(4);
+            this.groupProceso.Size = new System.Drawing.Size(533, 128);
+            this.groupProceso.TabIndex = 82;
+            this.groupProceso.TabStop = false;
+            this.groupProceso.Text = "Proceso :";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
+            this.checkBox1.ForeColor = System.Drawing.Color.Indigo;
+            this.checkBox1.Location = new System.Drawing.Point(65, 23);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(219, 20);
+            this.checkBox1.TabIndex = 81;
+            this.checkBox1.Text = "Sì existe proceso automatizado.";
+            this.checkBox1.UseVisualStyleBackColor = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Indigo;
+            this.label4.Location = new System.Drawing.Point(61, 59);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(124, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "NUEVO PROCESO";
+            // 
+            // CmdBuscar1
+            // 
+            this.CmdBuscar1.Image = global::Calidad.Properties.Resources.search;
+            this.CmdBuscar1.Location = new System.Drawing.Point(491, 76);
+            this.CmdBuscar1.Margin = new System.Windows.Forms.Padding(4);
+            this.CmdBuscar1.Name = "CmdBuscar1";
+            this.CmdBuscar1.Size = new System.Drawing.Size(35, 27);
+            this.CmdBuscar1.TabIndex = 7;
+            this.CmdBuscar1.UseVisualStyleBackColor = false;
+            this.CmdBuscar1.Visible = false;
+            this.CmdBuscar1.Click += new System.EventHandler(this.CmdBuscar1_Click);
+            // 
+            // txtdesproceso
+            // 
+            this.txtdesproceso.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtdesproceso.Location = new System.Drawing.Point(65, 79);
+            this.txtdesproceso.Margin = new System.Windows.Forms.Padding(4);
+            this.txtdesproceso.MaxLength = 50;
+            this.txtdesproceso.Name = "txtdesproceso";
+            this.txtdesproceso.Size = new System.Drawing.Size(413, 22);
+            this.txtdesproceso.TabIndex = 6;
+            this.txtdesproceso.Enter += new System.EventHandler(this.txtdesproceso_Enter);
+            this.txtdesproceso.Validating += new System.ComponentModel.CancelEventHandler(this.txtdesproceso_Validating);
+            // 
+            // txtcodproceso
+            // 
+            this.txtcodproceso.AcceptsTab = true;
+            this.txtcodproceso.Location = new System.Drawing.Point(9, 79);
+            this.txtcodproceso.Margin = new System.Windows.Forms.Padding(4);
+            this.txtcodproceso.MaxLength = 2;
+            this.txtcodproceso.Name = "txtcodproceso";
+            this.txtcodproceso.Size = new System.Drawing.Size(47, 22);
+            this.txtcodproceso.TabIndex = 5;
+            this.txtcodproceso.Visible = false;
+            // 
+            // groupModulo
+            // 
+            this.groupModulo.BackColor = System.Drawing.Color.Transparent;
+            this.groupModulo.Controls.Add(this.CmdBuscar0);
+            this.groupModulo.Controls.Add(this.txtdesmodulo);
+            this.groupModulo.Controls.Add(this.txtCodModulo);
+            this.groupModulo.ForeColor = System.Drawing.Color.Indigo;
+            this.groupModulo.Location = new System.Drawing.Point(369, 84);
+            this.groupModulo.Margin = new System.Windows.Forms.Padding(4);
+            this.groupModulo.Name = "groupModulo";
+            this.groupModulo.Padding = new System.Windows.Forms.Padding(4);
+            this.groupModulo.Size = new System.Drawing.Size(536, 54);
+            this.groupModulo.TabIndex = 81;
+            this.groupModulo.TabStop = false;
+            this.groupModulo.Text = "Sistema :";
+            // 
+            // CmdBuscar0
+            // 
+            this.CmdBuscar0.Image = global::Calidad.Properties.Resources.search;
+            this.CmdBuscar0.Location = new System.Drawing.Point(491, 17);
+            this.CmdBuscar0.Margin = new System.Windows.Forms.Padding(4);
+            this.CmdBuscar0.Name = "CmdBuscar0";
+            this.CmdBuscar0.Size = new System.Drawing.Size(35, 27);
+            this.CmdBuscar0.TabIndex = 7;
+            this.CmdBuscar0.UseVisualStyleBackColor = true;
+            this.CmdBuscar0.Click += new System.EventHandler(this.CmdBuscar0_Click);
+            // 
+            // txtdesmodulo
+            // 
+            this.txtdesmodulo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtdesmodulo.Location = new System.Drawing.Point(68, 20);
+            this.txtdesmodulo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtdesmodulo.MaxLength = 50;
+            this.txtdesmodulo.Name = "txtdesmodulo";
+            this.txtdesmodulo.ReadOnly = true;
+            this.txtdesmodulo.Size = new System.Drawing.Size(413, 22);
+            this.txtdesmodulo.TabIndex = 6;
+            this.txtdesmodulo.TextChanged += new System.EventHandler(this.txtdesmodulo_TextChanged);
+            this.txtdesmodulo.Validating += new System.ComponentModel.CancelEventHandler(this.txtdesmodulo_Validating);
+            // 
+            // txtCodModulo
+            // 
+            this.txtCodModulo.AcceptsReturn = true;
+            this.txtCodModulo.AcceptsTab = true;
+            this.txtCodModulo.Location = new System.Drawing.Point(12, 20);
+            this.txtCodModulo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCodModulo.MaxLength = 2;
+            this.txtCodModulo.Name = "txtCodModulo";
+            this.txtCodModulo.ReadOnly = true;
+            this.txtCodModulo.Size = new System.Drawing.Size(47, 22);
+            this.txtCodModulo.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 16F);
+            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Location = new System.Drawing.Point(367, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(323, 44);
+            this.label1.TabIndex = 83;
+            this.label1.Text = "AGREGA NUEVO TEST";
+            // 
+            // GrNomTest
+            // 
+            this.GrNomTest.BackColor = System.Drawing.Color.Transparent;
+            this.GrNomTest.Controls.Add(this.txtTestDescr);
+            this.GrNomTest.Controls.Add(this.button3);
+            this.GrNomTest.Controls.Add(this.txtNomTest);
+            this.GrNomTest.Enabled = false;
+            this.GrNomTest.ForeColor = System.Drawing.Color.Indigo;
+            this.GrNomTest.Location = new System.Drawing.Point(369, 281);
+            this.GrNomTest.Margin = new System.Windows.Forms.Padding(4);
+            this.GrNomTest.Name = "GrNomTest";
+            this.GrNomTest.Padding = new System.Windows.Forms.Padding(4);
+            this.GrNomTest.Size = new System.Drawing.Size(533, 66);
+            this.GrNomTest.TabIndex = 83;
+            this.GrNomTest.TabStop = false;
+            this.GrNomTest.Text = "Nombre Test :";
+            // 
+            // txtTestDescr
+            // 
+            this.txtTestDescr.Location = new System.Drawing.Point(11, 23);
+            this.txtTestDescr.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTestDescr.Name = "txtTestDescr";
+            this.txtTestDescr.ReadOnly = true;
+            this.txtTestDescr.Size = new System.Drawing.Size(49, 22);
+            this.txtTestDescr.TabIndex = 95;
+            // 
+            // button3
+            // 
+            this.button3.Image = global::Calidad.Properties.Resources.search;
+            this.button3.Location = new System.Drawing.Point(491, 21);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(35, 27);
+            this.button3.TabIndex = 8;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // txtNomTest
+            // 
+            this.txtNomTest.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNomTest.Location = new System.Drawing.Point(68, 23);
+            this.txtNomTest.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNomTest.MaxLength = 180;
+            this.txtNomTest.Name = "txtNomTest";
+            this.txtNomTest.Size = new System.Drawing.Size(413, 22);
+            this.txtNomTest.TabIndex = 6;
+            this.txtNomTest.TextChanged += new System.EventHandler(this.txtNomTest_TextChanged);
+            this.txtNomTest.Enter += new System.EventHandler(this.txtNomTest_Enter);
+            this.txtNomTest.Validating += new System.ComponentModel.CancelEventHandler(this.txtNomTest_Validating);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.Indigo;
+            this.label2.Location = new System.Drawing.Point(16, 351);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(319, 65);
+            this.label2.TabIndex = 88;
+            this.label2.Text = "Permite agregar nuevo test al sistema\r\nde automatizacion  de prueba siguiendo\r\npa" +
+    "sos basicos de creacion";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.Indigo;
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(-4, -1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(935, 53);
+            this.panel1.TabIndex = 89;
+            // 
+            // txtRutaTest
+            // 
+            this.txtRutaTest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRutaTest.Location = new System.Drawing.Point(11, 518);
+            this.txtRutaTest.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRutaTest.Name = "txtRutaTest";
+            this.txtRutaTest.Size = new System.Drawing.Size(313, 22);
+            this.txtRutaTest.TabIndex = 91;
+            // 
+            // GrillaRuta
+            // 
+            this.GrillaRuta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GrillaRuta.Location = new System.Drawing.Point(16, 644);
+            this.GrillaRuta.Margin = new System.Windows.Forms.Padding(4);
+            this.GrillaRuta.Name = "GrillaRuta";
+            this.GrillaRuta.RowHeadersWidth = 51;
+            this.GrillaRuta.Size = new System.Drawing.Size(884, 84);
+            this.GrillaRuta.TabIndex = 92;
+            this.GrillaRuta.Visible = false;
+            // 
+            // fecha
+            // 
+            this.fecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fecha.Location = new System.Drawing.Point(249, 464);
+            this.fecha.Margin = new System.Windows.Forms.Padding(4);
+            this.fecha.Name = "fecha";
+            this.fecha.Size = new System.Drawing.Size(111, 22);
+            this.fecha.TabIndex = 94;
+            this.fecha.Visible = false;
+            // 
+            // button5
+            // 
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Image = global::Calidad.Properties.Resources.yellow_balloon_icon;
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(544, 496);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(113, 47);
+            this.button5.TabIndex = 96;
+            this.button5.Text = "Abrir\r\nRuta";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Image = global::Calidad.Properties.Resources.delete_icon__1_;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(423, 496);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(113, 47);
+            this.button4.TabIndex = 95;
+            this.button4.Text = "Eliminar";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Validating += new System.ComponentModel.CancelEventHandler(this.button4_Validating);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Calidad.Properties.Resources.icon_256_blue_0000s_0027_automate;
+            this.pictureBox1.Location = new System.Drawing.Point(11, 71);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(324, 257);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 87;
+            this.pictureBox1.TabStop = false;
+            // 
+            // button2
+            // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.Indigo;
+            this.button2.Image = global::Calidad.Properties.Resources.Actions_application_exit_icon;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(787, 496);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(116, 47);
+            this.button2.TabIndex = 86;
+            this.button2.Text = "Salir";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.Indigo;
+            this.button1.Image = global::Calidad.Properties.Resources.Alarm_Tick_icon_32;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(665, 496);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 47);
+            this.button1.TabIndex = 85;
+            this.button1.Text = "Crear";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtnumot
+            // 
+            this.txtnumot.Location = new System.Drawing.Point(12, 94);
+            this.txtnumot.Margin = new System.Windows.Forms.Padding(4);
+            this.txtnumot.MaxLength = 10;
+            this.txtnumot.Name = "txtnumot";
+            this.txtnumot.Size = new System.Drawing.Size(132, 22);
+            this.txtnumot.TabIndex = 5;
+            this.txtnumot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 74);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(142, 16);
+            this.label3.TabIndex = 64;
+            this.label3.Text = "Nro OT para Proceso :";
+            // 
+            // txtObjetivo
+            // 
+            this.txtObjetivo.Location = new System.Drawing.Point(11, 18);
+            this.txtObjetivo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtObjetivo.MaxLength = 8000;
+            this.txtObjetivo.Multiline = true;
+            this.txtObjetivo.Name = "txtObjetivo";
+            this.txtObjetivo.Size = new System.Drawing.Size(471, 51);
+            this.txtObjetivo.TabIndex = 11;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.labelAzure);
+            this.groupBox4.Controls.Add(this.txtAzureID);
+            this.groupBox4.Controls.Add(this.txtObjetivo);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.txtnumot);
+            this.groupBox4.Enabled = false;
+            this.groupBox4.ForeColor = System.Drawing.Color.Indigo;
+            this.groupBox4.Location = new System.Drawing.Point(369, 354);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(536, 134);
+            this.groupBox4.TabIndex = 93;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Objetivo del Test";
+            // 
+            // labelAzure
+            // 
+            this.labelAzure.AutoSize = true;
+            this.labelAzure.Location = new System.Drawing.Point(197, 74);
+            this.labelAzure.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelAzure.Name = "labelAzure";
+            this.labelAzure.Size = new System.Drawing.Size(57, 16);
+            this.labelAzure.TabIndex = 66;
+            this.labelAzure.Text = "ID Azure";
+            this.labelAzure.Click += new System.EventHandler(this.labelAzure_Click);
+            // 
+            // txtAzureID
+            // 
+            this.txtAzureID.Location = new System.Drawing.Point(201, 94);
+            this.txtAzureID.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAzureID.MaxLength = 10;
+            this.txtAzureID.Name = "txtAzureID";
+            this.txtAzureID.Size = new System.Drawing.Size(132, 22);
+            this.txtAzureID.TabIndex = 65;
+            this.txtAzureID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAzureID.TextChanged += new System.EventHandler(this.txtAzureID_TextChanged);
+            // 
+            // FrmAgregaTest3
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.CancelButton = this.button2;
+            this.ClientSize = new System.Drawing.Size(924, 555);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.fecha);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.GrillaRuta);
+            this.Controls.Add(this.txtRutaTest);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.GrNomTest);
+            this.Controls.Add(this.groupProceso);
+            this.Controls.Add(this.groupModulo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.Name = "FrmAgregaTest3";
+            this.Text = "  Agregar Nuevo Test";
+            this.Load += new System.EventHandler(this.FrmAgregaTest3_Load);
+            this.groupProceso.ResumeLayout(false);
+            this.groupProceso.PerformLayout();
+            this.groupModulo.ResumeLayout(false);
+            this.groupModulo.PerformLayout();
+            this.GrNomTest.ResumeLayout(false);
+            this.GrNomTest.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GrillaRuta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupProceso;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button CmdBuscar1;
+        private System.Windows.Forms.TextBox txtdesproceso;
+        public System.Windows.Forms.TextBox txtcodproceso;
+        private System.Windows.Forms.GroupBox groupModulo;
+        private System.Windows.Forms.Button CmdBuscar0;
+        private System.Windows.Forms.TextBox txtdesmodulo;
+        public System.Windows.Forms.TextBox txtCodModulo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox GrNomTest;
+        private System.Windows.Forms.TextBox txtNomTest;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txtRutaTest;
+        private System.Windows.Forms.DataGridView GrillaRuta;
+        private System.Windows.Forms.DateTimePicker fecha;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txtTestDescr;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox txtnumot;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtObjetivo;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label labelAzure;
+        private System.Windows.Forms.TextBox txtAzureID;
+    }
+}
